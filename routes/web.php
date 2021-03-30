@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BarangController;
+use Illuminate\Http\Request;
 
+Route::resource('Barang', BarangController::class);
 /*
 |--------------------------------------------------------------------------
 | Web Routes

@@ -19,7 +19,7 @@ class CreateBarangsTable extends Migration
             $table->string('nama_barang');
             $table->string('kategir_barang');
             $table->int('harga');
-            $table->int('table');
+            $table->int('qty');
             $table->timestamps();
         });
     }

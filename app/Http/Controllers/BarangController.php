@@ -12,37 +12,35 @@ class BarangController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
+    {     
+        //fungsi eloquent menampilkan data menggunakan pagination
+        $barangs = Barang::all(); // Mengambil semua isi tabel
+        $posts = Barang::orderBy('id_barang', 'kode_barang', 'nama_barang', 'kategori_barang', 'harga', 'qty')->paginate(6);
+        return view('barangs.index', compact('barangs'));
+        with('i', (request()->input('page', 1) - 1) * 5);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view('barangs.create');
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
-    {
-        //
+    {      
+    //melakukan validasi data
+        $request->validate([
+            'kode_barang' => 'required',
+            'nama_barang' => 'required',
+            'kategori_barang' => 'required',
+            'harga' => 'required',
+            'qyt' => 'required',
+        ]);
+    //fungsi eloquent untuk menambah data
+    Barang::create($request->all());
+    
+    //jika data berhasil ditambahkan, akan kembali ke halaman utama
+    return redirect()->route('barangs.index')
+        ->with('success', 'Barang Berhasil Ditambahkan');
+   
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
